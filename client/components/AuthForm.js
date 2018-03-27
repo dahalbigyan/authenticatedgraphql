@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 
 class AuthForm extends Component {
@@ -9,8 +10,9 @@ class AuthForm extends Component {
 
   onSubmit(event) {
     event.preventDefault();
+
     this.props.onSubmit(this.state);
-  }; 
+  }
 
   render() {
     return (
