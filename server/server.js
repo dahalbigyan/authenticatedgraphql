@@ -52,6 +52,13 @@ app.use('/graphql', expressGraphQL({
   graphiql: true
 }));
 
+app.get('/forgotpassword', function(req, res){
+  res.send('<form action="/passwordreset" method="POST">' +
+        '<input type="email" name="email" value="" placeholder="Enter your email address..." />' +
+        '<input type="submit" value="Reset Password" />' +
+    '</form>');
+});
+
 // Webpack runs as a middleware.  If any request comes in for the root route ('/')
 // Webpack will respond with the output of the webpack process: an HTML file and
 // a single bundle.js output of all of our client side Javascript
