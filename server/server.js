@@ -59,6 +59,35 @@ app.get('/forgotpassword', function(req, res){
     '</form>');
 });
 
+app.post('/passwordreset', function (req, res) {
+  if (req.body.email !== undefined) {
+      var emailAddress = req.body.email;
+
+      // TODO: Using email, find user from your database.
+      var payload = {
+          id: 1,        // User ID from database
+          email: emailAddress
+      };
+
+      // TODO: Make this a one-time-use token by using the user's
+      // current password hash from the database, and combine it
+      // with the user's created date to make a very unique secret key!
+      // For example:
+      // var secret = user.password + ‘-' + user.created.getTime();
+      var secret = 'fe1a1915a379f3be5394b64d14794932-1506868106675';
+
+      var token = jwt.encode(payload, secret);
+
+      // TODO: Send email containing link to reset password.
+      // In our case, will just return a link to click.
+      res.send('<a href="/resetpassword/' + payload.id + '/' + token + '">Reset password</a>');
+  } else {
+      res.send('Email address is missing.');
+  }
+});
+
+
+
 // Webpack runs as a middleware.  If any request comes in for the root route ('/')
 // Webpack will respond with the output of the webpack process: an HTML file and
 // a single bundle.js output of all of our client side Javascript
